@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soil Health Dashboard | Agro</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .dashboard-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            flex-grow: 1;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .chart-container {
+            width: 100%;
+            max-height: 250px;
+        }
+        .dark-mode {
+            background-color: #222;
+            color: white;
+        }
+        footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="features.html">Features</a></li>
+            <li><a href="subscribe.html">Subscribe</a></li>
+            <li><a href="feedback.html">Feedback</a></li>
+            <li><a href="#" onclick="toggleDarkMode()">🌙 Toggle Dark Mode</a></li>
+        </ul>
+    </nav>
+    
+    <header class="hero">
+        <h1>Soil Health Dashboard</h1>
+        <p>Monitor and analyze your soil health parameters for better crop yield.</p>
+    </header>
+    
+    <div class="dashboard-container">
+        <div class="card">
+            <h3>Soil pH Level</h3>
+            <canvas id="phChart" class="chart-container"></canvas>
+        </div>
+        <div class="card">
+            <h3>Moisture Content</h3>
+            <canvas id="moistureChart" class="chart-container"></canvas>
+        </div>
+        <div class="card">
+            <h3>Organic Matter</h3>
+            <canvas id="organicChart" class="chart-container"></canvas>
+        </div>
+        <div class="card">
+            <h3>Soil Nutrients</h3>
+            <canvas id="nutrientChart" class="chart-container"></canvas>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 Agro | All rights reserved.</p>
+    </footer>
+    
+    <script>
+        function renderChart(id, label, data, color) {
+            new Chart(document.getElementById(id), {
+                type: 'doughnut',
+                data: {
+                    labels: label,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: color,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                }
+            });
+        }
+        
+        renderChart('phChart', ['Acidic', 'Neutral', 'Alkaline'], [30, 40, 30], ['#e74c3c', '#2ecc71', '#f1c40f']);
+        renderChart('moistureChart', ['Dry', 'Optimal', 'Wet'], [20, 50, 30], ['#f39c12', '#3498db', '#1abc9c']);
+        renderChart('organicChart', ['Low', 'Medium', 'High'], [25, 50, 25], ['#d35400', '#8e44ad', '#2c3e50']);
+        renderChart('nutrientChart', ['Nitrogen', 'Phosphorus', 'Potassium'], [40, 30, 30], ['#16a085', '#2980b9', '#c0392b']);
+        
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+    </script>
+</body>
+</html>
